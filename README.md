@@ -52,10 +52,10 @@ deploy:
 1. Create a new service account key and download it, renaming to `client-secret.json`
    * **Roles:** `Cloud Functions Editor`, `Source Editor`, `Service Account Actor`
 2. Use the `travis` CLI tool and encrypt `travis encrypt-file client-secret.json --add`
-3. Place your functions in an `functions/functionName/` folder
+3. Place your functions in a `functions/functionName/` folder
 4. Add function to the `functions.sh` file with either http trigger or pub-sub topic
 5. Add `client-secret.json` to your `.gitignore` file
-6. Add you project files, commit, and push (assuming you linked repo to Travis CI)
+6. Add your project files, commit, and push (assuming you linked repo to Travis CI)
 
 # Best Practices
  * Testing: https://cloud.google.com/functions/docs/bestpractices/testing
