@@ -4,6 +4,13 @@ and only deploy those cloud functions, supporting multiple function directories
 in a single repo. It's not perfect, but it does support deploying only the functions 
 that changed to minimize downtime.
 
+## Background
+I synchronized my Github repo with GCloud's source repository and linked the functions to their 
+respective directories. My expectation would be that any commits to that directory would trigger a 
+deploy automatically. When I discovered that wasn't the case, and would need Cloud Builds, it 
+felt a little too much like "vendor lock in" so decided to script this using Travis CI instead so 
+our apps are more "portable". See: https://cloud.google.com/functions/docs/deploying/repo
+
 # .travis.yml
 ```yaml
 sudo: false
@@ -43,6 +50,7 @@ deploy:
 
 # Setup
 1. Create a new service account key and download it, renaming to `client-secret.json`
+   * **Roles:** `Cloud Functions Editor`, `Source Editor`, `Service Account Actor`
 2. Use the `travis` CLI tool and encrypt `travis encrypt-file client-secret.json --add`
 3. Place your functions in an `functions/functionName/` folder
 4. Add function to the `functions.sh` file with either http trigger or pub-sub topic
