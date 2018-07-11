@@ -10,7 +10,7 @@ gcloud --quiet config set compute/zone ${CLOUDSDK_COMPUTE_ZONE}
 
 gcloud container clusters get-credentials $CLUSTER_NAME_PRD
 
-source functions.sh
+source deploy/functions.sh
 
 CHANGED_FILES=$(git diff --name-only $TRAVIS_COMMIT_RANGE)
 

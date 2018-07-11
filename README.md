@@ -6,6 +6,12 @@ that changed to minimize downtime.
 
 # .travis.yml
 ```yaml
+sudo: false
+language: node_js
+node:
+- '9'
+script:
+- echo "Amazing!"
 env:
   global:
   - GOOGLE_APPLICATION_CREDENTIALS="${PWD}/client-secret.json"
@@ -22,17 +28,29 @@ before_deploy:
 - gcloud --quiet components update
 deploy:
 - provider: script
-  script: "./deploy.sh"
+  script: "./deploy/deploy.sh"
   skip_cleanup: true
   on:
     branch: master
 ```
 
+# Dependencies
+ * Github
+ * Travis CI
+ * Google Cloud Functions
+   * optionally enable Cloud PubSub if you don't want `http` triggers
+ * Bash 4 (should exist in Travis CI but to test locally you'll need)
+
 # Setup
 1. Create a new service account key and download it, renaming to `client-secret.json`
-2. Use the `travis` CLI tool and encrypt `travis encrypt-file client.secret.json --add`
+2. Use the `travis` CLI tool and encrypt `travis encrypt-file client-secret.json --add`
 3. Place your functions in an `functions/functionName/` folder
 4. Add function to the `functions.sh` file with either http trigger or pub-sub topic
 5. Add `client-secret.json` to your `.gitignore` file
 6. Add you project files, commit, and push (assuming you linked repo to Travis CI)
 
+# Best Practices
+ * Testing: https://cloud.google.com/functions/docs/bestpractices/testing
+ * Security: I suggest you place any `http` trigger functions behind an API Gateway. I use Kong, 
+   but others would work just as fine. You may also simply reverse proxy with a web server and 
+   add authentication.
