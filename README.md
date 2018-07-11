@@ -62,3 +62,6 @@ deploy:
  * Security: I suggest you place any `http` trigger functions behind an API Gateway. I use Kong, 
    but others would work just as fine. You may also simply reverse proxy with a web server and 
    add authentication.
+
+# TODO
+ * Avoid deploying function multiple times if multiple files in directory edited
